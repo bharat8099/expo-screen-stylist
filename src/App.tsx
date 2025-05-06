@@ -1,27 +1,32 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ToastProvider } from 'react-native-toast-notifications';
+import Index from './pages/Index';
+import { Svg, Path, Line, Circle } from 'react-native-svg';
+import { Text } from 'react-native';
+
+// Make SVG available globally for our custom icons
+global.Svg = Svg;
+global.Path = Path;
+global.Line = Line;
+global.Circle = Circle;
+global.Text = Text;
+
+const Stack = createNativeStackNavigator();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ToastProvider>
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Index"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Index" component={Index} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  </ToastProvider>
 );
 
 export default App;

@@ -1,17 +1,36 @@
 
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 interface SubmitButtonProps {
-  onClick: () => void;
+  onPress: () => void;
 }
 
-const SubmitButton = ({ onClick }: SubmitButtonProps) => {
+const SubmitButton = ({ onPress }: SubmitButtonProps) => {
   return (
-    <button 
-      className="w-full bg-[#2a4674] text-white py-4 rounded-full text-xl font-semibold"
-      onClick={onClick}
+    <TouchableOpacity 
+      style={styles.button}
+      onPress={onPress}
     >
-      Submit
-    </button>
+      <Text style={styles.buttonText}>Submit</Text>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#2a4674",
+    paddingVertical: 16,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  }
+});
 
 export default SubmitButton;
